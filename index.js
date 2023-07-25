@@ -284,9 +284,16 @@ const path = require("node:path")
 
 const http = require('node:http')
 
+// http.createServer((req, res) => {
+//     res.writeHead(200);
+//     res.write('hello this is lakshya')
+//     console.log(req.url)
+//     res.end('Server is createdsdf')
+// }).listen(4500);
+const data = require('./data')
+
 http.createServer((req, res) => {
-    res.writeHead(200);
-    res.write('hello this is lakshya')
-    console.log(req.url)
-    res.end('Server is createdsdf')
-}).listen(4500);
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    res.write(JSON.stringify(data)) 
+    res.end()
+}).listen(3000)
