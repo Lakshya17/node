@@ -283,6 +283,7 @@ const path = require("node:path")
 // fs('hello.json', '{"key":"value"}')
 
 const http = require('node:http')
+const { argv } = require("node:process")
 
 // http.createServer((req, res) => {
 //     res.writeHead(200);
@@ -290,10 +291,45 @@ const http = require('node:http')
 //     console.log(req.url)
 //     res.end('Server is createdsdf')
 // }).listen(4500);
-const data = require('./data')
+// const data = require('./data')
 
-http.createServer((req, res) => {
-    res.writeHead(200, {'Content-Type': 'application/json'});
-    res.write(JSON.stringify(data)) 
-    res.end()
-}).listen(3000)
+// http.createServer((req, res) => {
+//     res.writeHead(200, {'Content-Type': 'application/json'});
+//     res.write(JSON.stringify(data)) 
+//     res.end()
+// }).listen(3000)
+
+// console.log(process.argv)
+
+const fs = require('node:fs');
+// const path = require('node:path')
+
+// const data = process.argv;
+
+// console.log(data)
+// if(data[2] == 'add'){
+//     console.log('fssdf')
+//     fs.writeFileSync(data[3], data[4])
+// }else if(data[2] == 'remove'){
+//     fs.unlinkSync(data[3])
+// }else{
+//     console.log('Invalid input')
+// }
+
+// fs.writeFileSync('apple.txt', 'This is a apple file.nod')
+
+const dirPath = path.join(__dirname, '/files')
+console.log(dirPath)
+
+fs.writeFileSync(`${dirPath}/apple.txt`, 'ssfsdf')
+// for(i=0;i<5;i++){
+
+// }
+
+const a = fs.readdir(dirPath, (err, data) => {
+    // console.log('File name', data)
+    data.forEach((data)=>{
+        console.log(data)
+    })
+})
+// console.log(a) 
