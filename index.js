@@ -45,7 +45,7 @@
 
 // console.log('lahefsfds')
 
-const path = require("node:path")
+// const path = require("node:path")
 
 // console.log(path.basename(__filename))
 // console.log(path.basename(__dirname))
@@ -282,8 +282,8 @@ const path = require("node:path")
 
 // fs('hello.json', '{"key":"value"}')
 
-const http = require('node:http')
-const { argv } = require("node:process")
+// const http = require('node:http')
+// const { argv } = require("node:process")
 
 // http.createServer((req, res) => {
 //     res.writeHead(200);
@@ -301,7 +301,7 @@ const { argv } = require("node:process")
 
 // console.log(process.argv)
 
-const fs = require('node:fs');
+// const fs = require('node:fs');
 // const path = require('node:path')
 
 // const data = process.argv;
@@ -318,18 +318,97 @@ const fs = require('node:fs');
 
 // fs.writeFileSync('apple.txt', 'This is a apple file.nod')
 
-const dirPath = path.join(__dirname, '/files')
-console.log(dirPath)
+// const dirPath = path.join(__dirname, '/files')
+// console.log(dirPath)
 
-fs.writeFileSync(`${dirPath}/apple.txt`, 'ssfsdf')
+// fs.writeFileSync(`${dirPath}/apple.txt`, 'ssfsdf')
 // for(i=0;i<5;i++){
 
 // }
 
-const a = fs.readdir(dirPath, (err, data) => {
-    // console.log('File name', data)
-    data.forEach((data)=>{
-        console.log(data)
-    })
-})
+// const a = fs.readdir(dirPath, (err, data) => {
+//     // console.log('File name', data)
+//     data.forEach((data)=>{
+//         console.log(data)
+//     })
+// })
 // console.log(a) 
+
+// const dirPath = path.join(__dirname, 'crud');
+// // console.log(dirPath)
+// const filePath = `${dirPath}/apple.txt`
+
+// fs.writeFileSync(`${filePath}`, 'THis is a text file')
+// fs.readFile(filePath, 'utf-8', (err, data) => {
+//     if(err){
+//         console.log(err)
+//     }else{
+//         console.log('data is: ', data)
+//     }
+// })
+
+// fs.appendFile(filePath, 'and file name is apple txt', (err) => {
+//     if(!err){
+//         console.log('file is updated')
+//     }
+// // })
+
+// fs.rename(filePath, `${dirPath}/file.txt`, (err) => {
+//     if(!err){
+//         console.log('file renamed')
+//     }
+// })
+
+// fs.unlinkSync(`${dirPath}/file.txt`)
+
+// let a = 10;
+// let b = 0;
+// const waitingData = new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//         resolve(30);
+//     }, 2000)
+// })
+
+// waitingData.then((data) => {
+//     console.log(a+data)
+// })
+
+const express = require('express')
+const app = express()
+// console.log(app)
+
+// app.get('', (req, res) => {
+//     console.log(req.query)
+//     res.send(`<h1>Hello lakshya</h1>
+//         <a href="/about-us-page">Go to ABout page</a>
+//     `)
+// })
+
+// app.get('/about-us-page', (req, res) => {
+//     res.send({
+//         name: 'lakshya',
+//         email: 'lakshya@gmail.com'
+//     })
+// })
+
+const path = require('node:path')
+
+const publicPath = path.join(__dirname, '/public')
+
+// app.use(express.static(publicPath))
+
+app.get('', (req, res) => {
+    res.sendFile(`${publicPath}/index.html`)
+})
+
+app.get('*', (req, res) => {
+    res.sendFile(`${publicPath}/404.html`)
+})
+
+app.listen(3000, () => {
+    console.log('Port is running on 3000')
+})
+
+console.log(express.static(publicPath))
+console.log(publicPath)
+console.log(__dirname)
