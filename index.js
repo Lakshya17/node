@@ -373,8 +373,8 @@
 //     console.log(a+data)
 // })
 
-const express = require('express')
-const app = express()
+// const express = require('express')
+// const app = express()
 // console.log(app)
 
 // app.get('', (req, res) => {
@@ -391,24 +391,75 @@ const app = express()
 //     })
 // })
 
-const path = require('node:path')
+// const path = require('node:path')
 
-const publicPath = path.join(__dirname, '/public')
+// const publicPath = path.join(__dirname, '/public')
 
-// app.use(express.static(publicPath))
+// // app.use(express.static(publicPath))
+// app.set('view engine', 'ejs')
 
-app.get('', (req, res) => {
-    res.sendFile(`${publicPath}/index.html`)
+// app.get('', (req, res) => {
+//     res.sendFile(`${publicPath}/index.html`)
+// })
+
+// app.get('/profile', (req, res) => {
+//     const user = {
+//         name: 'Lakshya',
+//         email: 'lakshya@gmail.com',
+//         city: 'indore',
+//         skills: ['JS', 'React', 'Node']
+//     }
+//     res.render('profile', {user})
+// })
+
+// app.get('/login', (req, res) => {
+//     res.render('login')
+// })
+// app.get('*', (req, res) => {
+//     res.sendFile(`${publicPath}/404.html`)
+// })
+
+// app.listen(3000, () => {
+//     console.log('Port is running on 3000')
+// })
+
+// console.log(express.static(publicPath))
+// console.log(publicPath)
+// console.log(__dirname)
+
+// const ejs = require('ejs')
+// console.log(ejs)
+
+
+const express = require('express')
+const app = express();
+const reqFilter = require('./middleware')
+const route = express.Router();
+
+// console.log(route)
+
+
+route.use(reqFilter)
+// app.use(reqFilter);
+app.get('/', (req, res) => {
+    res.send('Hello lakshya')
 })
 
-app.get('*', (req, res) => {
-    res.sendFile(`${publicPath}/404.html`)
+app.get('/users', (req, res) => {
+    res.send('Welcome to users page.')
 })
+
+route.get('/about', (req, res) =>  {
+    res.send('About us page')
+})
+
+route.get('/contact', (req, res) => {
+    res.send('This is the contact us page')
+})
+
+app.use('/', route)
+
 
 app.listen(3000, () => {
-    console.log('Port is running on 3000')
-})
-
-console.log(express.static(publicPath))
-console.log(publicPath)
-console.log(__dirname)
+    console.log('server started at 3000')
+});
