@@ -86,38 +86,55 @@
 
 //     findInDB();
 
-const express = require('express');
+// const express = require('express');
+// require('./config')
+// const Product = require('./product')
+// const app = express();
+// const mongoose = require('mongoose')
+// app.use(express.json())
+
+
+// app.get('/list', async(req, res) => {
+//     let data = await Product.find();
+//     res.send(data)
+// })
+
+// app.put('/create/:id', async (req, res) => {
+//     let data = await Product.updateOne({ _id : req.params.id},{$set: {
+//         price: 4500
+//     }})
+//     res.send(data);
+// })
+
+// app.delete('/delete/:_id', async (req, res) => {
+//     console.log(req.params)
+//     let data = await Product.deleteOne(req.params.id)
+//     res.send(data)
+// })
+
+// app.post('/create', async (req, res) => {
+//     // console.log(req.body)
+//     let data = new Product(req.body)
+//     const result = await data.save();
+//     res.send(result);
+//     // console.log(result)
+// })
+
+const express = require('express')
 require('./config')
 const Product = require('./product')
-const app = express();
-const mongoose = require('mongoose')
-app.use(express.json())
+const app = express()
+app.use(express.json());
 
 
-app.get('/list', async(req, res) => {
-    let data = await Product.find();
+app.get('/search/:key', async (req, res) => {
+    let data = await Product.find({
+        "$or": [
+            {"name" : {$regex:req.params.key}},
+            {"brand" : {$regex:req.params.key}}
+        ]
+    })
     res.send(data)
-})
-
-app.put('/create/:id', async (req, res) => {
-    let data = await Product.updateOne({ _id : req.params.id},{$set: {
-        price: 4500
-    }})
-    res.send(data);
-})
-
-app.delete('/delete/:_id', async (req, res) => {
-    console.log(req.params)
-    let data = await Product.deleteOne(req.params.id)
-    res.send(data)
-})
-
-app.post('/create', async (req, res) => {
-    // console.log(req.body)
-    let data = new Product(req.body)
-    const result = await data.save();
-    res.send(result);
-    // console.log(result)
 })
 
 app.listen(3000, () => {
