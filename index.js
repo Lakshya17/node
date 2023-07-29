@@ -465,17 +465,33 @@
 // });
 
 
-const { MongoClient } = require('mongodb')
-const url = 'mongodb://localhost:27017'
-const client = new MongoClient(url)
-const dataBase = 'e-com'
+// const { MongoClient } = require('mongodb')
+// const url = 'mongodb://localhost:27017'
+// const client = new MongoClient(url)
+// const dataBase = 'e-com'
 
-async function getData(){
-    let result = await client.connect();
-    let db = result.db(dataBase)
-    let collection = db.collection('product');
-    let response = await collection.find({}).toArray()
-    console.log(response)
+// async function dbConnect(){
+//     let result = await client.connect();
+//     let db = result.db(dataBase)
+//     return db.collection('product');
+//     // let response = await collection.find({}).toArray()
+//     // console.log(response)
+// }
+
+// console.log(dbConnect())
+
+// dbConnect().then((res) => {
+//     res.find().toArray().then((data) => {
+//         console.log(data)
+//     })
+// })
+
+const dbConnect = require('./mongodb')
+
+const main = async () => {
+    let data = await dbConnect()
+    data = await data.find().toArray();
+    console.log(data)
 }
 
-getData();
+main()
