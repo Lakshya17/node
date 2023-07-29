@@ -431,35 +431,51 @@
 // console.log(ejs)
 
 
-const express = require('express')
-const app = express();
-const reqFilter = require('./middleware')
-const route = express.Router();
+// const express = require('express')
+// const app = express();
+// const reqFilter = require('./middleware')
+// const route = express.Router();
 
-// console.log(route)
-
-
-route.use(reqFilter)
-// app.use(reqFilter);
-app.get('/', (req, res) => {
-    res.send('Hello lakshya')
-})
-
-app.get('/users', (req, res) => {
-    res.send('Welcome to users page.')
-})
-
-route.get('/about', (req, res) =>  {
-    res.send('About us page')
-})
-
-route.get('/contact', (req, res) => {
-    res.send('This is the contact us page')
-})
-
-app.use('/', route)
+// // console.log(route)
 
 
-app.listen(3000, () => {
-    console.log('server started at 3000')
-});
+// route.use(reqFilter)
+// // app.use(reqFilter);
+// app.get('/', (req, res) => {
+//     res.send('Hello lakshya')
+// })
+
+// app.get('/users', (req, res) => {
+//     res.send('Welcome to users page.')
+// })
+
+// route.get('/about', (req, res) =>  {
+//     res.send('About us page')
+// })
+
+// route.get('/contact', (req, res) => {
+//     res.send('This is the contact us page')
+// })
+
+// app.use('/', route)
+
+
+// app.listen(3000, () => {
+//     console.log('server started at 3000')
+// });
+
+
+const { MongoClient } = require('mongodb')
+const url = 'mongodb://localhost:27017'
+const client = new MongoClient(url)
+const dataBase = 'e-com'
+
+async function getData(){
+    let result = await client.connect();
+    let db = result.db(dataBase)
+    let collection = db.collection('product');
+    let response = await collection.find({}).toArray()
+    console.log(response)
+}
+
+getData();
