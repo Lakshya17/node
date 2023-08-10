@@ -53,7 +53,7 @@
 
 // console.log(path.extname(__filename))
 // console.log(path.extname(__dirname))
- 
+
 
 // console.log(path.parse(__filename))
 // console.log(path.parse(__dirname))
@@ -120,7 +120,7 @@
 // console.log(fs)
 
 // const fs = require('node:fs')
- 
+
 // const content = fs.readFileSync('./file.txt')
 // const contents = fs.readFileSync('./file.txt', 'utf-8')
 
@@ -504,33 +504,80 @@
 // console.log(os.platform())
 // console.log(os.userInfo())
 
-const express = require('express');
-const EventEmitter = require('node:events')
-const app = express();
-const event = new EventEmitter();
+// const express = require('express');
+// const EventEmitter = require('node:events')
+// const app = express();
+// const event = new EventEmitter();
 
-let count = 0; 
-event.on('countAPI', () => {
-    count++;
-    console.log('Event count', count)
-})
+// let count = 0; 
+// event.on('countAPI', () => {
+//     count++;
+//     console.log('Event count', count)
+// })
+
+// app.get('/', (req, res) => {
+//     res.send('api called')
+//     event.emit('countAPI')
+// })
+
+// app.get('/search', (req, res) => {
+//     event.emit('countAPI')
+//     res.send('search Api')
+// });
+
+// app.get('/update', (req, res) => {
+//     res.send('Api called again')
+//     event.emit('countAPI')
+// })
+
+// app.listen(3000, () => {
+//     console.log('Server is running')
+// })
+
+// const x = 10;
+// console.log(x++)
+
+// const mysql = require('mysql');
+// const conn = mysql.createConnection({
+//     host: 'localhost',
+//     user: 'root',
+//     password: '',
+//     database: 'test'
+// })
+
+// conn.connect((err) => {
+//     if (err) {
+//         console.log('Connection Error');
+//     } else {
+//         console.log('Connected')
+//     }
+// })
+
+// conn.query('select * from users', (err, res) => {
+//     if (err) {
+//         console.log(err)
+//     } else {
+//         console.log(res)
+//     }
+// })
+
+const express = require('express');
+const app = express();
+const configsql = require('./configsql')
+
 
 app.get('/', (req, res) => {
-    res.send('api called')
-    event.emit('countAPI')
-})
-
-app.get('/search', (req, res) => {
-    event.emit('countAPI')
-    res.send('search Api')
-});
-
-app.get('/update', (req, res) => {
-    res.send('Api called again')
-    event.emit('countAPI')
+    configsql.query('select * from users', (err, result) => {
+        if(err){
+            console.log('Error is', err)
+            res.send(err)
+        }else{
+            res.send(result)
+            console.log(result)
+        }
+    })
 })
 
 app.listen(3000, () => {
     console.log('Server is running')
 })
-
