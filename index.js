@@ -496,10 +496,41 @@
 
 // main()
 
-const os = require('node:os')
-console.log(os.arch());
-console.log(os.freemem()/(1024*1024*1024))
-console.log(os.totalmem()/(1024*1024*1024))
-console.log(os.hostname())
-console.log(os.platform())
-console.log(os.userInfo())
+// const os = require('node:os')
+// console.log(os.arch());
+// console.log(os.freemem()/(1024*1024*1024))
+// console.log(os.totalmem()/(1024*1024*1024))
+// console.log(os.hostname())
+// console.log(os.platform())
+// console.log(os.userInfo())
+
+const express = require('express');
+const EventEmitter = require('node:events')
+const app = express();
+const event = new EventEmitter();
+
+let count = 0; 
+event.on('countAPI', () => {
+    count++;
+    console.log('Event count', count)
+})
+
+app.get('/', (req, res) => {
+    res.send('api called')
+    event.emit('countAPI')
+})
+
+app.get('/search', (req, res) => {
+    event.emit('countAPI')
+    res.send('search Api')
+});
+
+app.get('/update', (req, res) => {
+    res.send('Api called again')
+    event.emit('countAPI')
+})
+
+app.listen(3000, () => {
+    console.log('Server is running')
+})
+
