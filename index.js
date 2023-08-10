@@ -486,12 +486,20 @@
 //     })
 // })
 
-const dbConnect = require('./mongodb')
+// const dbConnect = require('./mongodb')
 
-const main = async () => {
-    let data = await dbConnect()
-    data = await data.find().toArray();
-    // console.log(data)
-}
+// const main = async () => {
+//     let data = await dbConnect()
+//     data = await data.find().toArray();
+//     // console.log(data)
+// }
 
-main()
+// main()
+
+const os = require('node:os')
+console.log(os.arch());
+console.log(os.freemem()/(1024*1024*1024))
+console.log(os.totalmem()/(1024*1024*1024))
+console.log(os.hostname())
+console.log(os.platform())
+console.log(os.userInfo())
